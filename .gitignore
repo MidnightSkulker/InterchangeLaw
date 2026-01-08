@@ -1,4 +1,5 @@
 
-*.log
 ARCHIVE
 *.gz
+*.aux
+*.log
