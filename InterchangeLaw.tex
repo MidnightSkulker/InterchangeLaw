@@ -1,0 +1,190 @@
+\documentclass[10pt]{article}
+
+
+\newcommand{\onearrow}[3]{\mbox{$#1 \stackrel{#2}{\longrightarrow} #3$}}
+\newcommand{\calB}{\mbox{${\cal B}\ $}}
+\newcommand{\calC}{\mbox{${\cal C}\ $}}
+\newcommand{\calD}{\mbox{${\cal D}\ $}}
+\newcommand{\calE}{\mbox{${\cal E}\ $}}
+\newcommand{\calG}{\mbox{${\cal G}\ $}}
+\newcommand{\calH}{\mbox{${\cal H}\ $}}
+\newcommand{\calI}{\mbox{${\cal I}\ $}}
+\newcommand{\calM}{\mbox{${\cal M}\ $}}
+\newcommand{\calO}{\mbox{${\cal O}\ $}}
+\newcommand{\calS}{\mbox{${\cal S}\ $}}
+\newcommand{\begrem}[1]{\begin{remark}[#1]}
+\newcommand{\functor}[3]{\mbox{${\cal #1} \stackrel{#2}{\rightarrow}{\cal #3}$}}
+\newcommand{\mapto}[2]{\mbox{$#1 \mapsto #2$}}
+\newcommand{\maptob}[3]{\mbox{$#1: #2 \mapsto #3$}}
+\newcommand{\begdef}[1]{\begin{definition}[\textbf{#1}]}
+\newcommand{\edefi}{\ $\clubsuit$\end{definition}}
+
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath,amscd}
+\usepackage[all,cmtip]{xy}
+\usepackage{comment}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{example}{Example}
+
+\begin{document}
+
+\section{Horizontal Composition}
+\subsection{Setup}
+$$
+ \onearrow{\calC}{F}{\calD}, \onearrow{\calC}{F'}{\calD}, \onearrow{\calD}{G}{\calE}, \onearrow{\calD}{G'}{\calE}
+A \xrightarrow[\bullet]{\alpha} B
+$$
+$$
+\xymatrix{
+& & F \ar@/^1pc/[drr] \ar@{=>}[dd]^{\alpha} & & & & G \ar@/^1pc/[drr] \ar@{=>}[dd]^{\beta} \\
+\calC  \ar@{-}@/^1pc/[urr] \ar@{-}@/_1pc/[drr]
+%    \ar@/_1pc/[dl] \\
+& & & & \calD \ar@{-}@/^1pc/[urr] \ar@{-}@/_1pc/[drr] 
+& & & & \calE \\
+& &  F' \ar@/_1pc/[urr] & & & &  G' \ar@/_1pc/[urr] \\
+}
+$$
+
+\subsection{Definition of $(\beta \circ \alpha)_a$}
+
+$(\beta \circ \alpha)_a = G' \alpha_a \circ \beta_{F a} = \beta_{F' a} \circ G \alpha_a$
+
+$$
+\xymatrix{
+% First row with F a and G(F a)
+& F a \ar@{.>}[dr]|{G'} \ar[rr]|G \ar[dd]|{\alpha_a} & & G(F a) \ar[dl]|(0.4){\beta_{Fa}} \ar[dd]|{G(\alpha_a)} \ar@{-->}[dddl]|{(\beta \circ \alpha)_a}\\
+% Second row with a and G'(F a)
+a \ar[ru]|F \ar[rd]|{F'} & & G'(F a) \ar[dd]|{G'(\alpha_a)} \\
+% Third row with F' a and G(F' a)
+& F' a \ar@{.>}[dr]|{G'} & & G(F' a) \ar[dl]|(0.4){\beta_{F' a}} \\
+% Fourth row with G'(F a)
+& & G'(F a)
+}
+$$
+
+
+\section{Interchange Law}
+\begin{proposition}[Interchange Law]
+$$
+(\beta' \circ \alpha')  \cdot (\beta \circ \alpha) = (\beta' \cdot \beta) \circ (\alpha' \cdot \alpha)
+$$
+$$
+\xymatrix{
+% First row with F a and G(F a)
+& & F a \ar[ddd]|{\alpha_a} \ar@{.>}[ddr]|{G''} \ar@{.>}[drr]|{G''} \ar[rrr]|G \ar@/^2pc/@{.>}[dddddd]|(0.40){(\alpha` \cdot \alpha)_a}
+  & & & G(F a) \ar[ddd]|{G\alpha_a} \ar[dl]|{\beta_{Fa}} \ar@{-->}[ldddd]|(.35){(\beta \circ \alpha)_a} \ar@{-->}@/_2pc/[ddll]|(0.50){(\beta' \cdot \beta)_{F a}}  \\
+% Second row with G'(F a)
+& & & & G'(Fa) \ar[ld]|{\beta'_{Fa}} \ar@{-->}[ldddd]|(.35){(\beta \circ \alpha)_a} \ar[ddd]|(0.30){G'(\alpha_a)} \\
+% Third row with G''(F a)
+& & & G''(F a) \ar[ddd]|(.2){G''(\alpha_a)} \\
+% Fourth row with a, F' a, G(F' a)
+a\ar[rruuu]|F \ar[rr]|{F'} \ar[rrddd]|{F''} &
+  & F' a  \ar[ddd]|{\alpha'_a} \ar[rrr]|(.2)G \ar@{.>}[rrd]|(.3){G'} \ar@{.>}[ddr]|(0.60){G''} \ar@{.>}[dddrrr]|(0.2)G & &
+  & G(F' a) \ar[ddd]|{G(\alpha'_a)} \ar[dl]|{\beta_{F' a}} \ar@{-->}[ldddd]|(.50){(\beta \circ \alpha')_a} \ar@{-->}@/_2pc/[ddll]|(0.50){(\beta' \cdot \beta)_{F' a}} \\
+% Fifth row with G'(F' a)
+& & & & G'(F' a) \ar[dl]^{\beta'_{F' a}} \ar[ddd]|(0.44){G'(\alpha'_a)}  \ar@{-->}[ldddd]|(.40){(\beta' \circ \alpha')_a} \\
+% Sixth row with G'(f' a)
+& & & G''(F' a) \ar[ddd]|(.2){G''(\alpha'_a)} \\
+% Seventh row with F'' a and G(F'' a)
+& & F''a  \ar[rrr]|(.2)G \ar@{.>}[rrd]|(.3){G'} \ar@{.>}[rdd]|{G''} & &
+  & G(F''a) \ar[dl]|{\beta_{F'' a}} \ar@{-->}@/_2pc/[ddll]|(0.50){(\beta' \cdot \beta)_{F'' a}} \\
+% Eighth row with G'(F'' a)
+& & & & G'(F'' a) \ar[dl]|(0.45){\beta'_{f'' a}}\\
+& & & G''(F'' a) 
+}
+$$
+
+\end{proposition}
+
+\subsection{Definition of $(\beta' \circ \alpha')_a$}
+
+$(\beta' \circ \alpha')_a = G'' (\alpha_a) \circ \beta'_{F' a} = \beta'_{F'' a} \circ G'(\alpha'_a)$
+
+$$
+\xymatrix{
+% First row with F' a and G'(F' a)
+& F' a \ar@{.>}[dr]|{G''} \ar[rr]|{G'} \ar[dd]|{\alpha'_a} & & G'(F' a) \ar[dl]|(0.4){\beta'_{F' a}} \ar[dd]|{G'(\alpha'_a)} \ar@{-->}[dddl]|{(\beta' \circ \alpha')_a}.\\
+% Second row with a and G''(F' a)
+a \ar[ru]|F' \ar[rd]|{F''} & & G''(F' a) \ar[dd]|{G''(\alpha'_a)} \\
+% Third row with F'' a and G'(F'' a)
+& F'' a \ar@{.>}[dr]|{G''} & & G'(F'' a) \ar[dl]|(0.4){\beta'_{F'' a}} \\
+% Fourth row with G''(F' a)
+& & G''(F' a)
+}
+$$
+
+\begin{comment}
+\section{Categories}
+
+\begdef{Category}
+A \emph{Category} is an ordered quintuple
+${\calC} = \langle {\calO},{\calM}, dom, cod, \circ \rangle $
+where
+\begin{description}
+\item	[objects] ${\calO} = Ob({\calC})$ is a class of \emph{objects}
+\item [arrows] ${\calM} = Hom({\calC})$ is a class of ${\calC}$-arrows,
+\item	[domain function] \onearrow{\calM}{\text{dom}}{\calO} is a function that
+	determines the \emph{domain} of each arrow of the category \calC,
+\item	[codomain function] \onearrow{\calM}{\text{cod}}{\calO} is a function that
+	determines the \emph{codomain} (also called the \emph{range})
+	of each arrow of the category \calC, and
+\item [composition] \emph{Composition} is a function \onearrow{\calD}{\circ}{\calM} where
+	$$
+	{\calD}= \{ \langle \alpha, \beta \rangle \mid \alpha, \beta \in{\calM}
+	\ \textstyle{and}\ 
+	\text{dom}(\alpha) = \text{cod}(\beta)\}.
+	$$
+	This function is called {\em composition} and we write
+	$\alpha \circ \beta$ for $\circ ( \alpha, \beta)$.
+	\begin{description}
+	\item	[Matching] Whenever $\alpha \circ \beta$ is defined we have
+	                  $dom(\alpha \circ \beta) = dom(\beta)$ and $cod ( \alpha \circ \beta ) = cod ( \alpha ) $.
+	\item	[Associativity]
+			$(\alpha \circ \beta) \circ \gamma = \alpha \circ (\beta \circ \gamma) $
+			whenever both sides are defined.
+	\item	[Identity] For every \calC-object $a$ there exists a \calC-arrow $1_a$ such that:
+			\begin{itemize}
+			 \item Whenever $\alpha \circ 1_a$ is defined (i.e. whenever $\text{dom}( \alpha ) = a$) we have
+				$\alpha \circ 1_a = \alpha$,
+		 	\item	Whenever $1_a \circ \beta$ is defined (i.e. whenever
+				$\text{cod} (\beta)=a$) we have $1_a \circ \beta = \beta$.
+			\end{itemize}
+	\end{description}
+\end{description}
+The composition function is required to satisfy the following axioms:
+
+The domain of an arrow is also called the \emph{source} of the arrow.
+The codomain of an arrow is also called the \emph{sink} of the arrow.
+If the sets \calO and \calM are finite, then \calC may be called a {\emph finite category}.
+\edefi
+
+\begrem{Defining a category}
+In order to define a category one must define the \emph{objects} of
+the category, the \emph{arrows} of the category, and the composition law in the category.
+One must then show that the \emph{associativity} and \emph{identity} laws are satisfied.
+The \emph{matching} condition is normally self evident.
+\end{remark}
+
+\section{Hom Functors}
+
+\begin{definition}[\textbf{contravariant} $\hom$-\textbf{functor} $\hom(-,b)$]
+Let \calC and \calD be categories. Define the \emph{contravariant} $\hom$ \emph{functor} \onearrow{\calC}{\hom(-,b)}{\mathbf{Set}} as follows
+$$
+\xymatrix{
+a \ar[d]_{g} & \hom(a,b) & f \circ g \ar@{(->}[l] \\
+a'   		  & \hom(a',b) \ar[u]|{g^* = \hom(g,b)} & f \ar@{(->}[l] \ar[u]_{g^*}
+}
+$$
+\begin{description}
+\item [objects] \maptob{\hom(-,b)}{a}{\hom(a,b)}, i.e. the object $a$ is mapped to the \emph{set} of morphisms from $a$ to $b$.
+\item [arrows] \maptob{\hom(-,b)}{\onearrow{a}{g}{a'}}{g^* = \hom(g,b)}, i.e. the function $g$ is mapped to the function $g^*$ defined by \maptob{g^*}{f}{f \circ g}.
+\end{description}
+\end{definition}
+\end{comment}
+
+
+\end{document}
